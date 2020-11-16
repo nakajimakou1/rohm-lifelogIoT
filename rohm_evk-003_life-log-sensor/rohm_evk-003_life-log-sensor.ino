@@ -23,17 +23,18 @@
 ******************************************************************************/
 /*
  * rohm_evk-003_life-log-sensor.ino
+ * Copyright (c) 2016 ROHM Co.,Ltd.
  * Copyright:K.Nakajima 2020.11.02 
- * License Free
+ * License：MIT License
  * Ref:https://www.rohm.co.jp/sensor-shield-support
  */
 
-#include <Wire.h>
-#include <BH1790GLC.h>
-#include <FlexiTimer2.h>
-#include <stdio.h>
+#include <Wire.h>       //I2C用
+#include <FlexiTimer2.h>//タイマ用
+#include <stdio.h>      //テキストI/O処理
 
 // 脈波センサ
+#include <BH1790GLC.h>
 BH1790GLC bh1790glc;
 volatile bool timer_flg;
 char str[100];
