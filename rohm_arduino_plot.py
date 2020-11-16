@@ -42,9 +42,6 @@ def main():
     """
     ser.flush()
     while True:
-        # screen.fill((0,0,0))                     # 画面のクリア
-        # temp = ser.readline().rstrip().split()   # \nまで読み込む(\nは削除)
-        # stemp = str(ser.readline().rstrip())     # \nまで読み込む(\nは削除)
         stemp = ser.readline().rstrip().decode(encoding='utf-8').replace(' ','') # \nまで読み込む
         temp = stemp.split(",") #.decode(encoding='utf-8')
         # print("[*] len(temp):",len(temp))
@@ -65,7 +62,6 @@ def main():
         presss = np.append((float(temp[6])-1009.2)*100, presss)  
         presss = np.delete(presss, len(presss) - 1)
         magxys = np.append(math.degrees(math.atan2((float(temp[3])+30), (float(temp[4])+20))), magxys)  # 
-        #magxys = np.append(math.degrees(math.atan2((float(temp[4])+18), (float(temp[3])+30))), magxys)  # 
         magxys = np.delete(magxys, len(magxys) - 1)
         accxs  = np.append(float(temp[8])*50, accxs)
         accxs  = np.delete(accxs, len(accxs) - 1)
@@ -73,9 +69,7 @@ def main():
         accys  = np.delete(accys, len(accys) - 1)
         acczs  = np.append(float(temp[10])*50, acczs)
         acczs  = np.delete(acczs, len(acczs) - 1)
-
         print("[*1] temp:", temp, magxys[0])
-
 
         # グラフ表示設定
         plt.title("Real-time temperature")
@@ -115,5 +109,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
