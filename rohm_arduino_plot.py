@@ -6,6 +6,7 @@ from pygame.locals import *
 import serial
 import sys
 import math
+import csv
 
 def main():
     xscale = 1000
@@ -41,8 +42,15 @@ def main():
     sprintf(str,"%d,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s\n", val[0], val[1], tempbuf, mag[x] , mag[y] , mag[z] , pressbuf, presstempbuf, acc[x] , acc[y] , acc[z] );
     """
     ser.flush()
-    while True:
+    
+    path = './rohm_sensor_001.txt'
+    with open(path, mode='w') as f:
+
+      while True:
         stemp = ser.readline().rstrip().decode(encoding='utf-8').replace(' ','') # \nまで読み込む
+        #sstemp = ser.readline() #.rstrip().decode(encoding='utf-8').replace(' ','') # \nまで読み込む
+        #stemp = sstemp.rstrip().decode(encoding='utf-8').replace(' ','') # \nまで読み込む
+        
         temp = stemp.split(",") #.decode(encoding='utf-8')
         # print("[*] len(temp):",len(temp))
         if(len(temp) == 11) :
@@ -51,6 +59,10 @@ def main():
             print("[*1] temp:+")
             continue
         
+        f.write(stemp)
+        f.write("\n")
+        # f.write('\n'.join(stemp))
+
         text = font.render(str(float(temp[2])/10) + "[C]", False, (255,255,255))    # 表示する文字の設定
         screen.blit(text, (10, 10))     # レンダ，表示位置
         pygame.display.flip()           # 画面を更新して、変更を反映
